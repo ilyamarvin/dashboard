@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,14 +86,9 @@ DATABASES = {
 }
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'df9na1nl2monkr',
-#         'USER': 'harngljopzrpdz',
-#         'PASSWORD': '3e079ea6ae6ede965dc81730aaaa51452f15b6ec3374ea42b4e4cdaeca08507b',
-#         'HOST': 'ec2-34-253-116-145.eu-west-1.compute.amazonaws.com',
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         default=config('postgres://harngljopzrpdz:3e079ea6ae6ede965dc81730aaaa51452f15b6ec3374ea42b4e4cdaeca08507b@ec2-34-253-116-145.eu-west-1.compute.amazonaws.com:5432/df9na1nl2monkr')
+#     )
 # }
 
 
