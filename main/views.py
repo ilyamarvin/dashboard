@@ -1,9 +1,25 @@
+from django.db import connection
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from main.models import Ads
+
 
 def index(request):
-    return render(request, 'index.html')
+    # cursor = connection.cursor()
+    # cursor.execute("SELECT * FROM ads")
+    # row = cursor.fetchall()
+    # return HttpResponse(row)
+    ads = Ads.objects.all()
+    context = {
+        'ads': ads
+    }
+    return render(request, 'example.html', context)
 
-def ads(request, ad_id):
-    return HttpResponse(f"<h1>Объявление №{ad_id}</h1>")
+
+def ad(request, ad_id):
+    ads = Ads.objects.filter(id_ad=ad_id)
+    context = {
+        'ads': ads
+    }
+    return render(request, 'example.html', context)
