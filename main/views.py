@@ -23,3 +23,6 @@ def ad(request, ad_id):
         'ads': ads
     }
     return render(request, 'example.html', context)
+
+def about(request):
+    return HttpResponse('about')
