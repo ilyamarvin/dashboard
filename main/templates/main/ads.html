@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        img {
+            max-width: 100%;
+            max-height: auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Доска объявлений</title>
+</head>
+
+<body>
+
+    <table class="blueTable">
+
+        <thead>
+            <tr>
+                <th>ad_id</th>
+                <th>id_category</th>
+                <th>id_subcategory</th>
+                <th>id_location</th>
+                <th>name</th>
+                <th>description</th>
+                <th>link_to_photos</th>
+                <th>id_user</th>
+                <th>price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for ad in ads %}
+            <tr>
+                <th scope="row">{{ ad.id_ad }}</th>
+                <td>{{ ad.id_category }}</td>
+                <td>{{ ad.id_subcategory }}</td>
+                <td>{{ ad.id_location }}</td>
+                <td>{{ ad.name }}</td>
+                <td>{{ ad.description }}</td>
+                <td><img src={{ ad.link_to_photos }}></td>
+                <td>{{ ad.id_user }}</td>
+                <td>{{ ad.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</body>
