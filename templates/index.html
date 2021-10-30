@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>Доска объявлений</title>
     <meta charset="UTF-8">
-    <title>Главная страница</title>
+
 </head>
 <body>
-<h1>Главная страница</h1>
-<p>Просто текст</p>
+<h1>Доска объявлений</h1>
+<p>Добро пожаловать! Вы находитесь на главной странице доски объявлений, для того чтобы продолжить, выберите что-нибудь из списка:</p>
+
+<h2>Список возможностей:</h2> 
+<ul>
+    <li><strong><a href="{% url 'ads' %}">Просмотреть все объявления</strong></a> (всего объявлений: {{ num_ads }})</li>
+    <li><strong><a href="{% url 'add_new' %}">Добавить своё объявление</a></strong></li>
+    <li><strong><a href="{% url 'personal' %}">Личный кабинет</a></strong></li>
+    <li><strong><a href="{% url 'about' %}">О сотрудниках</a></strong></li>
+  </ul>
+
+  <form action="{% url 'search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
 </body>
 </html>
 
