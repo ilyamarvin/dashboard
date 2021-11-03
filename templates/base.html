@@ -19,6 +19,8 @@
 	{% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
+			<li><form action="{% url 'search_results' %}" method="get">
+				<input name="q" type="text" placeholder="Поиск объявления..."></li>
 			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}

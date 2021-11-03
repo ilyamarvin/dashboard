@@ -14,7 +14,7 @@ menu = [{'title': 'О сайте', 'url_name': 'about'},
 
 
 def index(request):
-    ads = Ads.objects.all()
+    ads = Ads.objects.all().order_by('id_ad')
     context = {
         'ads': ads,
         'title': 'Главная страница',

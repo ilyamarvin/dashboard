@@ -8,7 +8,7 @@
 	{{a.description|truncatewords:50}}
 	{% endautoescape %}
 			<div class="clear"></div>
-			<p class="link-read-post"><a href="#">Посмотреть объявление</a></p>
+			<p class="link-read-post"><a href="{% url 'ad' a.pk %}">Посмотреть объявление</a></p>
 			</li>
 	{% endfor %}
 </ul>
