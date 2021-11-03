@@ -62,7 +62,13 @@ def personal(request):
     
 
 def about(request):
-    return HttpResponse('about')
+    workers = Workers.objects.all()
+    context = {
+        'title': 'О сотрудниках',
+        'workers': workers
+    }
+    return render(request, 'main/about.html', context)
+
 
 class SearchResultsList(ListView):
     model = Ads

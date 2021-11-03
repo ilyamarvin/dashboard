@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        img {
+            max-width: 50%;
+            max-height: auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+
+    <table class="blueTable">
+
+        <thead>
+            <tr>
+                <th>Номер рабочего</th>
+                <th>Первый рабочий день</th>
+                <th>Последний рабочий день</th>
+                <th>Имя пользователя</th>
+                <th>Должность</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for worker in workers %}
+            <tr>
+                <th scope="row">{{ worker.id_worker }}</th>
+                <td>{{ worker.first_day_work }}</td>
+                <td>{{ worker.last_day_work }}</td>
+                <td>{{ worker.id_user }}</td>
+                <td>{{ worker.id_position }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</body>
