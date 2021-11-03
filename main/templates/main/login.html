@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Авторизация</title>
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <h1>Введите данные, чтобы войти в свой аккаунт</h1>
+
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Логин">
+    </form>
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Пароль">
+    </form>
+
+    <form method="post" action="{% url 'login' %}">
+
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+</body>
+
+</html>

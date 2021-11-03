@@ -209,7 +209,9 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
-
+    
+    def __str__(self):
+        return self.username
 
 class Workers(models.Model):
     id_worker = models.AutoField(primary_key=True)
