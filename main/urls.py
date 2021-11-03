@@ -10,5 +10,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('personal/', views.personal, name='personal'),
-    path('search/', views.SearchResultsList.as_view(), name='search_results')
+    path('search/', views.SearchResultsList.as_view(), name='search_results'),
+    path('ad_delete/', views.DeleteAd.as_view(), name='ad_delete'),
+    path('ad_update/', views.ad_update, name='ad_update'),
 ]

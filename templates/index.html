@@ -15,10 +15,14 @@
     <li><strong><a href="{% url 'add_new' %}">Добавить своё объявление</a></strong></li>
     <li><strong><a href="{% url 'personal' %}">Личный кабинет</a></strong></li>
     <li><strong><a href="{% url 'about' %}">О сотрудниках</a></strong></li>
+    <li><strong><a href="{% url 'ad_update' %}">Обновить объявление</a></strong></li>
+    <li><form action="{% url 'ad_delete' %}" method="get">
+      <input name="q" type="text" placeholder="Удалить...">
+    </form></li>
   </ul>
 
   <form action="{% url 'search_results' %}" method="get">
-    <input name="q" type="text" placeholder="Search...">
+    <input name="q" type="text" placeholder="Поиск объявления...">
   </form>
 </body>
 </html>

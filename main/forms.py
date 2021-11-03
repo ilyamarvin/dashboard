@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import fields
 from .models import *
 
 class AddAdForm(forms.ModelForm):
@@ -9,9 +10,4 @@ class AddAdForm(forms.ModelForm):
 class RegisterForm(forms.ModelForm):
     class Meta:
         model = Users
-        fields = '__all__'
-
-class AboutWorkers(forms.ModelForm):
-    class Meta:
-        model = Workers
         fields = '__all__'

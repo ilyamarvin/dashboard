@@ -18,7 +18,7 @@ def index(request):
 
 
 def ads(request):
-    ads = Ads.objects.all()
+    ads = Ads.objects.all().order_by('id_ad')
     context = {
         'ads': ads,
         'title': 'Все объявления'
@@ -77,12 +77,12 @@ class SearchResultsList(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        ads = Ads.objects.filter(Q(name__icontains=query))
+        ads = Ads.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         if not ads:
             raise Http404("Ничего не нашлось... Попробуйте что-нибудь другое")
         else:
             return Ads.objects.filter(
-                Q(name__icontains=query)
+                Q(name__icontains=query) | Q(description__icontains=query)
             )
 
 
@@ -109,5 +109,19 @@ def register(request):
     return render(request, 'main/register.html', context)
 
 
-def delete_ad(request):
-    return HttpResponse('haha delete')
+def ad_update(request):
+    return HttpResponse('update')
+
+class DeleteAd(ListView):
+    model = Ads
+    context_object_name = "ads"
+    template_name = "index.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        ads = Ads.objects.filter(Q(id_ad__exact=query))
+        if not ads:
+            raise Http404("Такого объявления нет")
+        else:
+            Ads.objects.filter(Q(id_ad__exact=query)).delete()
+            return redirect('main')
