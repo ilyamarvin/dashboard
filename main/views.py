@@ -7,12 +7,18 @@ from .forms import *
 
 from main.models import Ads
 
+menu = [{'title': 'О сайте', 'url_name': 'about'},
+        {'title': 'Добавить объявление', 'url_name': 'add_new'}, 
+        {'title': 'Профиль', 'url_name': 'personal'}, 
+        {'title': 'Вход и регистрация', 'url_name': 'register'}]
+
 
 def index(request):
-    num_ads = Ads.objects.all().count()
+    ads = Ads.objects.all()
     context = {
-        'num_ads': num_ads,
-        'title': 'Главная страница'
+        'ads': ads,
+        'title': 'Главная страница',
+        'menu': menu
     }
     return render(request, 'index.html', context)
 
