@@ -8,7 +8,7 @@ from .forms import *
 
 from main.models import Ads
 
-menu = [{'title': 'О сайте', 'url_name': 'about'},
+menu = [{'title': 'Работники', 'url_name': 'about'},
         {'title': 'Добавить объявление', 'url_name': 'add_new'}, 
         {'title': 'Профиль', 'url_name': 'profile'}, 
         {'title': 'Вход и регистрация', 'url_name': 'register'}]
@@ -135,7 +135,8 @@ def register(request):
 
     context = {
         'title': 'Регистрация',
-        'form': form
+        'form': form,
+        'menu': menu
     }
     return render(request, 'main/register.html', context)
 
