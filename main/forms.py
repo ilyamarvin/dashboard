@@ -11,3 +11,9 @@ class RegisterForm(forms.ModelForm):
     class Meta:
         model = Users
         fields = '__all__'
+
+
+class AddReviewForm(forms.ModelForm):
+    class Meta:
+        model = ReviewsOnUser
+        fields = '__all__'

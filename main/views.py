@@ -82,7 +82,6 @@ def profile(request):
     ads = Ads.objects.filter(id_user=user.id_user).values('id_ad')
     rate = ReviewsOnUser.objects.filter(id_ad__in=ads).values('rating')
     rating = rate.aggregate(Avg('rating'))['rating__avg']
-    print (rating)
     
     context = {
         'user': user,
@@ -105,7 +104,7 @@ def about(request):
 class SearchResultsList(ListView):
     model = Ads
     context_object_name = "ads"
-    template_name = "main/ads.html"
+    template_name = "index.html"
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -149,3 +148,22 @@ def delete_ad(request, ad_id):
     Ads.objects.get(id_ad=ad_id).delete()
     return redirect('main')
 
+
+def write_review(request):
+    if request.method == 'POST':
+        form = AddReviewForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('main')
+            except:
+                form.add_error(None, 'Ошибка добавления отзыва')
+    else:
+        form = AddReviewForm()
+
+    context = {
+        'title': 'Отзыв на объявление',
+        'form': form,
+        'menu': menu
+    }
+    return render(request, 'main/review.html', context)
