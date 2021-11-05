@@ -15,11 +15,33 @@ menu = [{'title': 'О сайте', 'url_name': 'about'},
 
 def index(request):
     ads = Ads.objects.all().order_by('id_ad')
+    cats = Categories.objects.all()
+
     context = {
         'ads': ads,
+        'cats': cats,
+        'menu': menu,
         'title': 'Главная страница',
-        'menu': menu
+        'cat_selected': 0,
     }
+    return render(request, 'index.html', context)
+
+
+def show_category(request, cat_id):
+    ads = Ads.objects.filter(id_category=cat_id)
+    cats = Categories.objects.all()
+
+    if len(ads) == 0:
+        raise Http404()
+
+    context = {
+        'ads': ads,
+        'cats': cats,
+        'menu': menu,
+        'title': 'Отображение по категориям',
+        'cat_selected': cat_id,
+    }
+
     return render(request, 'index.html', context)
 
 

@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul class="list-articles">
+<ul class="list-articles">		
 	{% for a in ads %}
-			<li><h2>{{a.name}}</h2>
+	<li><div class="article-panel">
+		<p class="first">{{a.id_category}} | {{a.id_subcategory}}</p>		
+		<p class="last">Город: {{a.id_location}}</p>
+	</div>
+	{% if a.link_to_photos %}
+	<p><img class="img-article-left thumb" src={{ a.link_to_photos }}></p>
+{% endif %}
+			<h2>{{a.name}}</h2>
 	{% autoescape on %}
 	{{a.description|truncatewords:50}}
 	{% endautoescape %}

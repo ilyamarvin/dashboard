@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
+{% block content %}
+<h1>{{title}}</h1>
 
-<body>
-        <form action="{% url 'add_new' %}" method="post">
-            {% csrf_token %}
+<form action="{% url 'add_new' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Добавить</button>
         </form>
-</body>
+
+{% endblock %}

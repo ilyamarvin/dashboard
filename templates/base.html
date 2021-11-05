@@ -35,12 +35,19 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
+{% if cat_selected == 0 %}
 		<li class="selected">Все объявления</li>
-		<li><a href="#">Транспорт</a></li>
-		<li><a href="#">Недвижимость</a></li>
-		<li><a href="#">Работа</a></li>
-		<li><a href="#">Услуги</a></li>
-		<li><a href="#">Животные</a></li>
+{% else %}
+		<li><a href="{% url 'main' %}">Все объявления</a></li>
+{% endif %}
+
+{% for c in cats %}
+	{% if c.pk == cat_selected %}
+		<li class="selected">{{c.name}}</li>
+	{% else %}
+		<li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+	{% endif %}
+{% endfor %}
 		
 	</ul>
 </td>

@@ -11,13 +11,13 @@ from django.urls import reverse
 
 class Ads(models.Model):
     id_ad = models.AutoField(primary_key=True)
-    id_category = models.ForeignKey('Categories', models.DO_NOTHING, db_column='id_category')
-    id_subcategory = models.ForeignKey('Subcategories', models.DO_NOTHING, db_column='id_subcategory')
-    id_location = models.ForeignKey('Locations', models.DO_NOTHING, db_column='id_location')
+    id_category = models.ForeignKey('Categories', models.PROTECT, db_column='id_category')
+    id_subcategory = models.ForeignKey('Subcategories', models.PROTECT, db_column='id_subcategory')
+    id_location = models.ForeignKey('Locations', models.PROTECT, db_column='id_location')
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     link_to_photos = models.TextField(blank=True, null=True)
-    id_user = models.ForeignKey('Users', models.DO_NOTHING, db_column='id_user')
+    id_user = models.ForeignKey('Users', models.PROTECT, db_column='id_user')
     price = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -35,8 +35,8 @@ class AuthGroup(models.Model):
 
 class AuthGroupPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.PROTECT)
+    permission = models.ForeignKey('AuthPermission', models.PROTECT)
 
     class Meta:
         managed = False
@@ -46,7 +46,7 @@ class AuthGroupPermissions(models.Model):
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey('DjangoContentType', models.PROTECT)
     codename = models.CharField(max_length=100)
 
     class Meta:
@@ -74,8 +74,8 @@ class AuthUser(models.Model):
 
 class AuthUserGroups(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.PROTECT)
+    group = models.ForeignKey(AuthGroup, models.PROTECT)
 
     class Meta:
         managed = False
@@ -85,8 +85,8 @@ class AuthUserGroups(models.Model):
 
 class AuthUserUserPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.PROTECT)
+    permission = models.ForeignKey(AuthPermission, models.PROTECT)
 
     class Meta:
         managed = False
@@ -104,6 +104,9 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'cat_id': self.pk})
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -111,8 +114,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.SmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    content_type = models.ForeignKey('DjangoContentType', models.PROTECT, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.PROTECT)
 
     class Meta:
         managed = False
@@ -176,7 +179,7 @@ class Positions(models.Model):
 
 class ReviewsOnUser(models.Model):
     id_review = models.AutoField(primary_key=True)
-    id_ad = models.ForeignKey(Ads, models.DO_NOTHING, db_column='id_ad')
+    id_ad = models.ForeignKey(Ads, models.PROTECT, db_column='id_ad')
     review_text = models.TextField(blank=True, null=True)
     rating = models.IntegerField()
 
@@ -216,10 +219,10 @@ class Users(models.Model):
 
 class Workers(models.Model):
     id_worker = models.AutoField(primary_key=True)
-    id_position = models.ForeignKey(Positions, models.DO_NOTHING, db_column='id_position')
+    id_position = models.ForeignKey(Positions, models.PROTECT, db_column='id_position')
     first_day_work = models.DateField()
     last_day_work = models.DateField(blank=True, null=True)
-    id_user = models.ForeignKey(Users, models.DO_NOTHING, db_column='id_user')
+    id_user = models.ForeignKey(Users, models.PROTECT, db_column='id_user')
 
     class Meta:
         managed = False
