@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Профиль пользователя: {{user.username}}</h1>
+
+<h2>Имя: {{ user.firstname }}</h2>
+<h2>Фамилия: {{ user.secondname }}</h2>
+<h3>Электронная почта: {{ user.email }}</h3>
+<h3>Номер телефона: {{ user.telephone_number }}</h3>
+<h3>Дата рождения: {{ user.birth_date }}</h3>
+
+<h3>Рейтинг пользователя: {{ rate }}</h3>
+
+
+{% endblock %}

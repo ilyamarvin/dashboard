@@ -1,4 +1,5 @@
 from django.db import connection
+from django.db.models.aggregates import Avg
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.db.models import Q
@@ -9,7 +10,7 @@ from main.models import Ads
 
 menu = [{'title': 'О сайте', 'url_name': 'about'},
         {'title': 'Добавить объявление', 'url_name': 'add_new'}, 
-        {'title': 'Профиль', 'url_name': 'personal'}, 
+        {'title': 'Профиль', 'url_name': 'profile'}, 
         {'title': 'Вход и регистрация', 'url_name': 'register'}]
 
 
@@ -76,8 +77,20 @@ def add_ad(request):
     return render(request, 'main/create_ad.html', context)
 
 
-def personal(request):
-    return HttpResponse('personal information')
+def profile(request):
+    user = get_object_or_404(Users, username='nataly')
+    ads = Ads.objects.filter(id_user=user.id_user).values('id_ad')
+    rate = ReviewsOnUser.objects.filter(id_ad__in=ads).values('rating')
+    rating = rate.aggregate(Avg('rating'))['rating__avg']
+    print (rating)
+    
+    context = {
+        'user': user,
+        'rate': rating,
+        'menu': menu,
+        'title': user.username
+        }
+    return render(request, 'profile.html', context)
     
 
 def about(request):
