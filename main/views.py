@@ -1,5 +1,5 @@
 from django.db import connection
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django.views.generic import ListView
@@ -45,25 +45,15 @@ def show_category(request, cat_id):
     return render(request, 'index.html', context)
 
 
-def ads(request):
-    ads = Ads.objects.all().order_by('id_ad')
+def show_ad(request, ad_id):
+    ad = get_object_or_404(Ads, id_ad=ad_id)
     context = {
-        'ads': ads,
-        'title': 'Все объявления'
-    }
-    return render(request, 'main/ads.html', context)
-
-
-def ad(request, ad_id):
-    if ad_id > len(Ads.objects.all()) or ad_id <= 0:
-        raise Http404("Такого объявления не существует... Попробуйте что-нибудь другое")
-    else:
-        ads = Ads.objects.filter(id_ad=ad_id)
-        context = {
-        'ads': ads,
-        'title': f'Объявление №{ ad_id }'
-    }
-    return render(request, 'main/ads.html', context)
+        'ad': ad,
+        'menu': menu,
+        'title': ad.name,
+        'cat_selected': ad.id_category,
+        }
+    return render(request, 'main/ad.html', context)
 
 
 def add_ad(request):
@@ -80,7 +70,8 @@ def add_ad(request):
 
     context = {
         'title': 'Создание объявления',
-        'form': form
+        'form': form,
+        'menu': menu
     }
     return render(request, 'main/create_ad.html', context)
 

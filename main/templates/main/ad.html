@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ad.name}}</h1>
+
+{% if ad.link_to_photos %}
+<p><img class="img-article-left thumb" src={{ ad.link_to_photos }}></p>
+{% endif %}
+
+<p>Описание: {{ad.description}}</p>
+<p>Цена: {{ad.price}}</p>
+<h5>Владелец: {{ ad.id_user }}</h5>
+{% endblock %}
