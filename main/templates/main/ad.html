@@ -11,6 +11,9 @@
 <p>Цена: {{ad.price}}</p>
 <h5>Владелец: {{ ad.id_user }}</h5>
 
-<button type="button" onclick="alert('Точно хотите удалить объявление?')">Удалить</button>
+
+<a href="{% url 'ad_delete' ad.id_ad %}">
+    <button type="button" onclick="alert('Вы удалили объявление')">Удалить</button>
+</a>
 
 {% endblock %}

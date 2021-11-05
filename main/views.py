@@ -144,16 +144,8 @@ def register(request):
 def ad_update(request):
     return HttpResponse('update')
 
-class DeleteAd(ListView):
-    model = Ads
-    context_object_name = "ads"
-    template_name = "index.html"
 
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        ads = Ads.objects.filter(Q(id_ad__exact=query))
-        if not ads:
-            raise Http404("Такого объявления нет")
-        else:
-            Ads.objects.filter(Q(id_ad__exact=query)).delete()
-            return redirect('main')
+def delete_ad(request, ad_id):
+    Ads.objects.get(id_ad=ad_id).delete()
+    return redirect('main')
+

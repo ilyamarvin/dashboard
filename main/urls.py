@@ -11,6 +11,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profile/nataly/', views.profile, name='profile'),
     path('search/', views.SearchResultsList.as_view(), name='search_results'),
-    path('ad_delete/', views.DeleteAd.as_view(), name='ad_delete'),
+    path('ad_delete/<int:ad_id>/', views.delete_ad, name='ad_delete'),
     path('ad_update/', views.ad_update, name='ad_update'),
 ]
