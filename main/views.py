@@ -96,6 +96,7 @@ def about(request):
     workers = Workers.objects.all()
     context = {
         'title': 'О сотрудниках',
+        'menu': menu,
         'workers': workers
     }
     return render(request, 'main/about.html', context)
