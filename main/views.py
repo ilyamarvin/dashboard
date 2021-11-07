@@ -168,4 +168,18 @@ def write_review(request):
         'form': form,
         'menu': menu
     }
-    return render(request, 'main/review.html', context)
+    return render(request, 'main/add_review.html', context)
+
+
+def show_reviews(request):
+    user = get_object_or_404(Users, username='nataly')
+    ads = Ads.objects.filter(id_user=user.id_user).values('id_ad')
+    reviews = ReviewsOnUser.objects.filter(id_ad__in=ads)
+    
+    context = {
+        'user': user,
+        'menu': menu,
+        'title': "Отзывы пользователя" + user.username,
+        'reviews': reviews
+        }
+    return render(request, 'main/reviews.html', context)

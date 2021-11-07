@@ -9,7 +9,7 @@
 <h3>Номер телефона: {{ user.telephone_number }}</h3>
 <h3>Дата рождения: {{ user.birth_date }}</h3>
 
-<h3>Рейтинг пользователя: {{ rate }}</h3>
+<h3><a href="{% url 'reviews' %}">Рейтинг пользователя: {{ rate }}</a></h3>
 
 
 {% endblock %}

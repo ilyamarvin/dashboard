@@ -13,5 +13,6 @@ urlpatterns = [
     path('search/', views.SearchResultsList.as_view(), name='search_results'),
     path('ad_delete/<int:ad_id>/', views.delete_ad, name='ad_delete'),
     path('ad_update/', views.ad_update, name='ad_update'),
-    path('review/', views.write_review, name='review'),
+    path('add_review/', views.write_review, name='add_review'),
+    path('reviews/', views.show_reviews, name='reviews'),
 ]

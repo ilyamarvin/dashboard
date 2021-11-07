@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Отзывы о пользователе: {{user.username}}</h1>
+
+<table class="blueTable">
+
+    <thead>
+        <tr>
+            <th>Номер отзыва</th>
+            <th>На какое объявление отзыв</th>
+            <th>Текст отзыва</th>
+            <th>Оценка</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for review in reviews %}
+        <tr>
+            <th scope="row">{{ review.id_review }}</th>
+            <td>{{ review.id_ad }}</td>
+            <td>{{ review.review_text }}</td>
+            <td>{{ review.rating }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
