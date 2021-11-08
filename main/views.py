@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.views.generic import ListView
 from .forms import *
 from .models import *
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from main.models import Ads
 
@@ -180,21 +180,22 @@ def ad_reviews(request, ad_id):
     return render(request, 'main/ad_reviews.html', context)
 
 
-
-def review_create(request):
+def review_create(request, ad_id):
+    ad = get_object_or_404(Ads, id_ad=ad_id)
     if request.method == 'POST':
         form = AddReviewForm(request.POST)
         if form.is_valid():
             try:
+                form.instance.id_ad = ad_id
                 form.save()
-                return redirect('main')
+                return redirect('ad', ad_id=ad_id)
             except:
                 form.add_error(None, 'Ошибка добавления отзыва')
     else:
         form = AddReviewForm()
 
     context = {
-        'title': 'Отзыв на объявление',
+        'title': f'Отзыв на объявление {ad.name}',
         'form': form,
         'menu': menu
     }

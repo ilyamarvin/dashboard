@@ -16,7 +16,7 @@ class RegisterForm(forms.ModelForm):
 class AddReviewForm(forms.ModelForm):
     class Meta:
         model = ReviewsOnUser
-        fields = '__all__'
+        fields = ['review_text', 'rating']
 
 
 class UpdateAdForm(forms.ModelForm):
