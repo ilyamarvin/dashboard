@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(10y$=db8uodv&9her^8z+eq%%%bf1xe@qa^ao^3h5ljl)dpi!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dashboard-mirea.herokuapp.com']
 
 
 # Application definition
