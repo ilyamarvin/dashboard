@@ -11,12 +11,16 @@
 <p>Цена: {{ad.price}}</p>
 <h5>Владелец: {{ ad.id_user }}</h5>
 
-<a href="{% url 'add_review' %}">
+<a href="{% url 'review_create' %}">
     <button type="button">Написать отзыв</button>
 </a>
 
 <a href="{% url 'ad_delete' ad.id_ad %}">
     <button type="button" onclick="alert('Вы удалили объявление')">Удалить</button>
+</a>
+
+<a href="{% url 'ad_update' ad.id_ad %}">
+    <button type="button">Изменить объявление</button>
 </a>
 
 {% endblock %}

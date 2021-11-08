@@ -2,8 +2,7 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-
-<form action="{% url 'update_ad' 1 %}" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Изменить объявление</button>

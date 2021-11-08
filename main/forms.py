@@ -17,3 +17,9 @@ class AddReviewForm(forms.ModelForm):
     class Meta:
         model = ReviewsOnUser
         fields = '__all__'
+
+
+class UpdateAdForm(forms.ModelForm):
+    class Meta:
+        model = Ads
+        fields = ['id_category', 'id_subcategory', 'id_location', 'name', 'description', 'link_to_photos', 'price']

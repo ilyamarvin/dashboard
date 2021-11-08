@@ -5,11 +5,13 @@ from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django.views.generic import ListView
 from .forms import *
+from .models import *
+from django.views.generic.edit import UpdateView
 
 from main.models import Ads
 
 menu = [{'title': 'Работники', 'url_name': 'about'},
-        {'title': 'Добавить объявление', 'url_name': 'add_new'}, 
+        {'title': 'Добавить объявление', 'url_name': 'ad_create'}, 
         {'title': 'Профиль', 'url_name': 'profile'}, 
         {'title': 'Вход и регистрация', 'url_name': 'register'}]
 
@@ -57,7 +59,7 @@ def show_ad(request, ad_id):
     return render(request, 'main/ad.html', context)
 
 
-def add_ad(request):
+def ad_create(request):
     if request.method == 'POST':
         form = AddAdForm(request.POST)
         if form.is_valid():
@@ -74,7 +76,7 @@ def add_ad(request):
         'form': form,
         'menu': menu
     }
-    return render(request, 'main/create_ad.html', context)
+    return render(request, 'main/ad_create.html', context)
 
 
 def profile(request):
@@ -142,16 +144,32 @@ def register(request):
     return render(request, 'main/register.html', context)
 
 
-def ad_update(request):
-    return HttpResponse('update')
+def ad_update(request, ad_id):
+    ad = get_object_or_404(Ads, id_ad=ad_id)
+    form = UpdateAdForm(request.POST or None, instance = ad)
+    if form.is_valid():
+        try:
+            form.save()
+            return redirect('ad', ad_id=ad_id)
+        except:
+            form.add_error(None, 'Ошибка изменения объявления')
+    
+    context = {
+        'title': f'Изменить объявление №{ad_id}',
+        'form': form,
+        'menu': menu
+    }
+    return render(request, 'main/ad_update.html', context)
 
 
-def delete_ad(request, ad_id):
+
+
+def ad_delete(request, ad_id):
     Ads.objects.get(id_ad=ad_id).delete()
     return redirect('main')
 
 
-def write_review(request):
+def review_create(request):
     if request.method == 'POST':
         form = AddReviewForm(request.POST)
         if form.is_valid():
@@ -168,7 +186,7 @@ def write_review(request):
         'form': form,
         'menu': menu
     }
-    return render(request, 'main/add_review.html', context)
+    return render(request, 'main/review_create.html', context)
 
 
 def show_reviews(request):
@@ -183,3 +201,4 @@ def show_reviews(request):
         'reviews': reviews
         }
     return render(request, 'main/reviews.html', context)
+
