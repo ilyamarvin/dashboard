@@ -15,12 +15,16 @@
     <button type="button">Написать отзыв</button>
 </a>
 
-<a href="{% url 'ad_delete' ad.id_ad %}">
-    <button type="button" onclick="alert('Вы удалили объявление')">Удалить</button>
+<a href="{% url 'ad_reviews' ad.id_ad %}">
+    <button type="button">Посмотреть отзывы</button>
 </a>
 
 <a href="{% url 'ad_update' ad.id_ad %}">
     <button type="button">Изменить объявление</button>
+</a>
+
+<a href="{% url 'ad_delete' ad.id_ad %}">
+    <button type="button" onclick="alert('Вы удалили объявление')">Удалить</button>
 </a>
 
 {% endblock %}

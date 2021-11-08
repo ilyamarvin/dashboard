@@ -162,11 +162,23 @@ def ad_update(request, ad_id):
     return render(request, 'main/ad_update.html', context)
 
 
-
-
 def ad_delete(request, ad_id):
     Ads.objects.get(id_ad=ad_id).delete()
     return redirect('main')
+
+
+def ad_reviews(request, ad_id):
+    ad = get_object_or_404(Ads, id_ad=ad_id)
+    reviews = ReviewsOnUser.objects.filter(id_ad = ad)
+    print(reviews)
+    context = {
+        'menu': menu,
+        'title': f"Отзывы на объявление {ad.name}",
+        'reviews': reviews,
+        'ad': ad
+        }
+    return render(request, 'main/ad_reviews.html', context)
+
 
 
 def review_create(request):
@@ -189,7 +201,7 @@ def review_create(request):
     return render(request, 'main/review_create.html', context)
 
 
-def show_reviews(request):
+def show_reviews_user(request):
     user = get_object_or_404(Users, username='nataly')
     ads = Ads.objects.filter(id_user=user.id_user).values('id_ad')
     reviews = ReviewsOnUser.objects.filter(id_ad__in=ads)
