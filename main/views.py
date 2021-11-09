@@ -186,7 +186,7 @@ def review_create(request, ad_id):
         form = AddReviewForm(request.POST)
         if form.is_valid():
             try:
-                form.instance.id_ad = ad_id
+                form.instance.id_ad = ad
                 form.save()
                 return redirect('ad', ad_id=ad_id)
             except:
