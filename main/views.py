@@ -95,11 +95,13 @@ def profile(request):
     
 
 def about(request):
-    workers = Workers.objects.all()
+    worker = get_object_or_404(Workers, id_worker = 1)
+    user = get_object_or_404(Users, username = worker.id_user)
     context = {
         'title': 'О сотрудниках',
         'menu': menu,
-        'workers': workers
+        'worker': worker,
+        'user': user
     }
     return render(request, 'main/about.html', context)
 
